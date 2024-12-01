@@ -1,7 +1,8 @@
 import os
 from datetime import datetime
-from src.core_features import create_project_dirs, generate_filename
 import pytest
+
+from core_features import create_project_dirs, generate_filename
 
 # Helper function to validate directory structure
 def check_directory_structure(base_path, structure):
@@ -51,16 +52,24 @@ def test_generate_filename():
     assert filename.startswith("test_"), f"Filename prefix does not match. Got: {filename}"
     assert filename.endswith(".txt"), f"Filename extension does not match. Got: {filename}"
 
+    # Extract timestamp and unique ID
+    name_parts = filename.split("_", 1)[1].rsplit(".", 1)[0].split("-")
+    timestamp_str = "-".join(name_parts[:2])  # Join date and time
+    unique_id = name_parts[2]
+
     # Check timestamp format
-    timestamp_str = filename.split("_")[1].split(".")[0]
     try:
         datetime.strptime(timestamp_str, "%Y%m%d-%H%M%S")
     except ValueError:
         pytest.fail(f"Timestamp format is invalid. Got: {timestamp_str}, expected format: YYYYMMDD-HHMMSS")
 
+    # Ensure unique ID is present
+    assert len(unique_id) == 3, f"Unique ID length is incorrect. Got: {unique_id}"
+
     # Check uniqueness
     filename2 = generate_filename("test", "txt")
     assert filename != filename2, "Generated filenames are not unique."
+
 
 def test_generate_filename_edge_cases():
     """Test filename generation with unusual parameters."""

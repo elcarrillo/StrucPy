@@ -1,0 +1,3 @@
+Info: Missing values detected (11.11%)
+Warning: Outliers detected in column 'temperature'
+Data validation complete.

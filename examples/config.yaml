@@ -1,0 +1,22 @@
+directories:
+  input:
+    - raw_data
+    - processed_data
+  output:
+    - plots
+    - reports
+  logs: []
+  temp: []
+
+backup:
+  default_archive_name: "research_backup"
+
+filename:
+  default_prefix: "analysis"
+  default_extension: "csv"
+
+validation:
+  check_missing_values: true
+  check_duplicate_columns: true
+  check_outliers: true
+  missing_value_threshold: 0.1

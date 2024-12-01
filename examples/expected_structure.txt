@@ -1,0 +1,9 @@
+example_project/
+├── input/
+│   ├── raw_data/
+│   ├── processed_data/
+├── output/
+│   ├── plots/
+│   ├── reports/
+├── logs/
+├── temp/

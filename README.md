@@ -42,20 +42,28 @@ The following is the structure of the project:
 
 ```
 StructPy/
-├── src/                     # Source code for the tool
-│   ├── __init__.py          # Marks the 'src' folder as a package
-│   ├── core_features.py     # Core functionality for directories, backups, and filenames
-│   ├── validate.py          # Validation logic for datasets
-├── main.py                  # Main script for the CLI
-├── config.yaml              # Configuration file for customizing behavior
-├── requirements.txt         # Project dependencies
-├── setup.py                 # Installation script
-├── README.md                # Project documentation
-├── LICENSE                  # License for the project
+├── src/                     # Source code
+│   ├── __init__.py
+│   ├── main.py
+│   ├── core_features.py
+│   ├── validate.py
+│   ├── config_loader.py
 ├── tests/                   # Unit tests
-│   ├── __init__.py          # Optional, for Python <3.3
-│   ├── test_core_features.py # Tests for core features
-│   ├── test_validate.py     # Tests for validation logic
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── test_core_features.py
+│   ├── test_validate.py
+├── examples/                # Example configurations/files
+│   └── config.yaml
+├── .gitignore               # Git ignore rules
+├── LICENSE                  # License file
+├── README.md                # Project documentation
+├── requirements.txt         # Project dependencies
+├── pytest.ini               # Pytest configuration
+├── run_tests.sh             # Test execution script
+├── setup.py                 # Installation script
+├── config.yaml              # Main configuration file
+
 ```
 
 ---
@@ -143,36 +151,77 @@ Data validation complete.
 
 ### **4. Backup a Project**
 ```bash
-structpy backup --path ./experiment_001 --archive experiment_backup --backup-path ./backups
+structpy backup --path ./experiment_001 --archive experiment_backup
 ```
 
 **Result:**
-The project is compressed into `./backups/experiment_backup.zip`.
+The project is compressed into `experiment_backup.zip`.
 
 ---
 
-## **Sample Workflow**
+## **Advanced Usage Example**
 
-### **Scenario**: Preparing and managing a new experimental project.
+### **Scenario**: Managing a Collaborative Research Project
 
-1. **Create a project directory:**
+In this scenario, StructPy is used to manage multiple experiments within a single project folder.
+
+1. **Initialize the Project:**
+   Create a base directory for the project:
    ```bash
-   structpy create_dirs --path ./experiment_001
+   structpy create_dirs --path ./collaborative_project
    ```
 
-2. **Process and validate your data:**
-   ```bash
-   structpy validate --file raw_data.csv
+   Resulting structure:
+   ```
+   collaborative_project/
+   ├── input/
+   ├── output/
+   │   ├── plots/
+   │   ├── tables/
+   ├── logs/
+   ├── temp/
    ```
 
-3. **Generate filenames for processed datasets:**
+2. **Run Multiple Experiments:**
+   Create subdirectories for each experiment under the base project directory:
    ```bash
-   structpy generate_filename --prefix processed_data --ext csv
+   structpy create_dirs --path ./collaborative_project/experiment_01
+   structpy create_dirs --path ./collaborative_project/experiment_02
    ```
 
-4. **Store and back up the project:**
+3. **Validate Data for Experiment 1:**
    ```bash
-   structpy backup --path ./experiment_001 --archive experiment_backup --backup-path ./backups
+   structpy validate --file ./collaborative_project/experiment_01/data.csv
+   ```
+
+   Example output:
+   ```
+   Warning: Missing values detected (2.5%)
+   Info: No duplicate column names found.
+   Warning: Outliers detected in column velocity
+   Data validation complete.
+   ```
+
+4. **Generate Results Filenames:**
+   Generate a unique filename for storing processed results:
+   ```bash
+   structpy generate_filename --prefix exp1_results --ext csv
+   ```
+
+   Output:
+   ```
+   Generated filename: exp1_results_20241121-154500.csv
+   ```
+
+5. **Backup the Project:**
+   Backup the entire collaborative project into a timestamped archive:
+   ```bash
+   structpy backup --path ./collaborative_project --archive collaborative_project_backup
+   ```
+
+   Result:
+   ```
+   collaborative_project_backup.zip
    ```
 
 ---
@@ -210,4 +259,3 @@ pytest tests/ -v
 ## **License**
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 
----

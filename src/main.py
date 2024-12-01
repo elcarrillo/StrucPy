@@ -1,7 +1,7 @@
 import argparse  # for command-line argument parsing
 import pandas as pd
-from src.core_features import create_project_dirs, backup_project, generate_filename
-from src.validate import validate_data
+from core_features import create_project_dirs, backup_project, generate_filename
+from validate import validate_data
 
 def main():
     parser = argparse.ArgumentParser(description="StructPy: A tool for managing academic data projects.")

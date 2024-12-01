@@ -15,6 +15,7 @@ filename:
   default_extension: "csv"              # Default file extension for generated filenames
 
 validation:
-  check_missing_values: true            # Enable or disable missing value checks
-  check_duplicate_columns: true         # Enable or disable duplicate column checks
-  missing_value_threshold: 0.1          # Fractional threshold (10%) for missing values
+  check_missing_values: true
+  check_duplicate_columns: true
+  check_outliers: true         # Enable or disable outlier detection
+  missing_value_threshold: 0.2 # Allow up to 20% missing values

@@ -1,6 +1,7 @@
 LICENSE
 README.md
 setup.py
+src/main.py
 src/StructPy.egg-info/PKG-INFO
 src/StructPy.egg-info/SOURCES.txt
 src/StructPy.egg-info/dependency_links.txt
