@@ -1,0 +1,20 @@
+directories:
+  # Define the directory structure for the project
+  input: []                # Directory for input files
+  output:                  # Directory for output files
+    - plots                # Subdirectory for plots
+    - tables               # Subdirectory for tables
+  logs: []                 # Directory for logs
+  temp: []                 # Temporary working directory
+
+backup:
+  default_archive_name: "project_backup"  # Default name for backup archives
+
+filename:
+  default_prefix: "datafile"             # Default prefix for generated filenames
+  default_extension: "csv"              # Default file extension for generated filenames
+
+validation:
+  check_missing_values: true            # Enable or disable missing value checks
+  check_duplicate_columns: true         # Enable or disable duplicate column checks
+  missing_value_threshold: 0.1          # Fractional threshold (10%) for missing values

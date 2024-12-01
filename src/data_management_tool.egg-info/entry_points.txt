@@ -1,0 +1,2 @@
+[console_scripts]
+data-tool = main:main

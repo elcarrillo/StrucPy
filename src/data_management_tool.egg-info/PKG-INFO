@@ -1,0 +1,208 @@
+Metadata-Version: 2.1
+Name: data-management-tool
+Version: 0.1.0
+Summary: A Python-based tool for managing data projects.
+Home-page: https://github.com/elcarrillo/data-management-tool
+Author: Edgar L Carrillo
+Author-email: edgarc.ec@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas>=1.3.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: pytest>=7.0.0
+Requires-Dist: setuptools>=65.0.0
+
+# **Data Management Tool**
+
+A Python-based command-line tool for managing data projects in computational science and research. This tool helps create structured project directories, generate timestamped filenames, validate datasets, and back up projects seamlessly.
+
+---
+
+## **Features**
+1. **Create Project Directory Structures**:
+   - Automatically generate consistent directories and subdirectories based on a YAML configuration file.
+2. **Generate Filenames**:
+   - Create unique, timestamped filenames with customizable prefixes and extensions.
+3. **Validate Datasets**:
+   - Check for missing values, duplicate columns, and outliers in CSV files.
+4. **Backup Projects**:
+   - Compress entire project directories into `.zip` archives for easy sharing and safekeeping.
+
+---
+
+## **Installation**
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/data-management-tool.git
+   cd data-management-tool
+   ```
+
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. (Optional) Install the tool in editable mode:
+   ```bash
+   pip install -e .
+   ```
+
+---
+
+## **Configuration**
+
+Customize the tool's behavior using the `config.yaml` file in the project root.
+
+**Example `config.yaml`:**
+```yaml
+directories:
+  input: []
+  output:
+    - plots
+    - tables
+  logs: []
+  temp: []
+
+backup:
+  default_archive_name: "project_backup"
+
+filename:
+  default_prefix: "datafile"
+  default_extension: "csv"
+
+validation:
+  check_missing_values: true
+  check_duplicate_columns: true
+  missing_value_threshold: 0.1  # Allow up to 10% missing values
+```
+
+---
+
+## **Usage**
+
+Run the tool using the command-line interface. Below are examples of typical workflows:
+
+### **1. Create Project Directories**
+```bash
+python main.py create_dirs --path ./experiment_001
+```
+
+**Result:**
+The following directory structure is created at `./experiment_001`:
+```
+experiment_001/
+├── input/
+├── output/
+│   ├── plots/
+│   ├── tables/
+├── logs/
+├── temp/
+```
+
+---
+
+### **2. Generate Filenames**
+```bash
+python main.py generate_filename --prefix results --ext csv
+```
+
+**Output:**
+```
+Generated filename: results_20241121-153200.csv
+```
+
+You can customize the prefix and extension using the command-line arguments or rely on defaults from `config.yaml`.
+
+---
+
+### **3. Validate a Dataset**
+```bash
+python main.py validate --file data.csv
+```
+
+**Example Output:**
+```
+Info: Missing values detected (5.0%)
+Warning: Duplicate column names found
+Warning: Outliers detected in column temperature
+Data validation complete.
+```
+
+---
+
+### **4. Backup a Project**
+```bash
+python main.py backup --path ./experiment_001 --archive experiment_backup --backup-path ./backups
+```
+
+**Result:**
+The project is compressed into `./backups/experiment_backup.zip`.
+
+---
+
+## **Sample Workflow**
+
+### **Scenario**: Preparing and managing a new experimental project.
+
+1. **Create a project directory:**
+   ```bash
+   python main.py create_dirs --path ./experiment_001
+   ```
+
+2. **Process and validate your data:**
+   ```bash
+   python main.py validate --file raw_data.csv
+   ```
+
+3. **Generate filenames for processed datasets:**
+   ```bash
+   python main.py generate_filename --prefix processed_data --ext csv
+   ```
+
+4. **Store and back up the project:**
+   ```bash
+   python main.py backup --path ./experiment_001 --archive experiment_backup --backup-path ./backups
+   ```
+
+---
+
+## **Development**
+
+### **Run Tests**
+To ensure the tool is working as expected, run the test suite:
+```bash
+pytest tests/ -v
+```
+
+### **Contributing**
+1. Fork the repository.
+2. Create a feature branch:
+   ```bash
+   git checkout -b my-feature
+   ```
+3. Commit your changes and push to your branch:
+   ```bash
+   git commit -m "Add new feature"
+   git push origin my-feature
+   ```
+4. Open a pull request.
+
+---
+
+## **Future Enhancements**
+- Add support for other file formats (e.g., `.json`, `.h5`).
+- Extend validation to support user-defined rules.
+- Integrate with cloud storage solutions for backups.
+
+---
+
+## **License**
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+---
