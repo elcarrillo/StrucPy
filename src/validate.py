@@ -1,12 +1,10 @@
 import pandas as pd
 import logging
-from config_loader import load_config  
-
-# Load validation settings from YAML configuration
-config = load_config()
+from config_loader import load_config
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def validate_data(df):
     """
@@ -16,35 +14,43 @@ def validate_data(df):
     - Checks for duplicate columns.
     - Detects outliers in numeric columns.
     - Logs warnings and errors based on thresholds.
-    
-    Returns:
-        dict: Summary of validation results.
+    - Returns a summary of validation results.
     """
-    # Initialize validation results
+    # Load validation settings from YAML configuration
+    config = load_config() or {}
+    validation_config = config.get("validation", {})
+
+    # Validation results
     results = {
-        "missing_values": None,
-        "duplicates": False,
-        "outliers": {}
+        "missing_values": False,
+        "duplicate_columns": False,
+        "outliers": []
     }
-    
+
+    # Check if DataFrame is empty
+    if df.empty:
+        logger.warning("The DataFrame is empty. Validation skipped.")
+        return results
+
     # Check for missing values
-    if config["validation"].get("check_missing_values", True):
+    if validation_config.get("check_missing_values", False):
         missing_fraction = df.isnull().mean().mean()
-        results["missing_values"] = missing_fraction
-        if missing_fraction > config["validation"].get("missing_value_threshold", 0.1):
-            logging.warning(f"Missing values exceed threshold ({missing_fraction:.2%})")
+        threshold = validation_config.get("missing_value_threshold", 0.1)
+        if missing_fraction > threshold:
+            logger.warning(f"Missing values exceed threshold ({missing_fraction:.2%})")
+            results["missing_values"] = True
         elif missing_fraction > 0:
-            logging.info(f"Missing values detected ({missing_fraction:.2%})")
+            logger.info(f"Missing values detected ({missing_fraction:.2%})")
 
     # Check for duplicate columns
-    if config["validation"].get("check_duplicate_columns", True):
+    if validation_config.get("check_duplicate_columns", False):
         if not df.columns.is_unique:
-            logging.error("Duplicate column names found")
-            results["duplicates"] = True
+            logger.error("Duplicate column names found")
+            results["duplicate_columns"] = True
 
     # Check for outliers
-    if config["validation"].get("check_outliers", True):
-        for column in df.select_dtypes(include=["number"]).columns:
+    if validation_config.get("check_outliers", False):
+        for column in df.select_dtypes(include=['number']).columns:
             Q1 = df[column].quantile(0.25)
             Q3 = df[column].quantile(0.75)
             IQR = Q3 - Q1
@@ -52,8 +58,8 @@ def validate_data(df):
             upper_bound = Q3 + 1.5 * IQR
             outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
             if not outliers.empty:
-                logging.warning(f"Outliers detected in column '{column}'")
-                results["outliers"][column] = outliers.index.tolist()
+                logger.warning(f"Outliers detected in column '{column}'")
+                results["outliers"].append(column)
 
-    logging.info("Data validation complete.")
+    logger.info("Data validation complete.")
     return results

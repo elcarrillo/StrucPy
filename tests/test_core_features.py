@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 import pytest
+import time  
 
 from core_features import create_project_dirs, generate_filename
 
@@ -63,13 +64,12 @@ def test_generate_filename():
     except ValueError:
         pytest.fail(f"Timestamp format is invalid. Got: {timestamp_str}, expected format: YYYYMMDD-HHMMSS")
 
-    # Ensure unique ID is present
-    assert len(unique_id) == 3, f"Unique ID length is incorrect. Got: {unique_id}"
+    # Ensure unique ID is 6 characters
+    assert len(unique_id) == 6, f"Unique ID length is incorrect. Got: {unique_id}"
 
     # Check uniqueness
     filename2 = generate_filename("test", "txt")
     assert filename != filename2, "Generated filenames are not unique."
-
 
 def test_generate_filename_edge_cases():
     """Test filename generation with unusual parameters."""

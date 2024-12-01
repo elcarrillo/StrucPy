@@ -30,3 +30,9 @@ def dataframe_with_outliers():
         "A": [1, 2, 100],
         "B": [4, 5, 6]
     })
+
+@pytest.fixture(autouse=True)
+def clean_caplog(caplog):
+    """Automatically clear logs after every test."""
+    yield
+    caplog.clear()

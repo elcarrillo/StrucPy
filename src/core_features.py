@@ -2,7 +2,7 @@ import os
 import shutil
 from datetime import datetime
 import uuid
-
+import time 
 from config_loader import load_config
 
 # Load configuration
@@ -25,11 +25,10 @@ def backup_project(base_path, archive_name=None):
     shutil.make_archive(archive_name, "zip", base_path)
     print(f"Project backed up as {archive_name}.zip")
 
-# Core Feature 3: File Naming
 def generate_filename(prefix=None, ext=None):
-    """Generates a filename based on YAML configuration."""
-    prefix = config["filename"]["default_prefix"] if prefix is None else prefix
-    ext = ext or config["filename"]["default_extension"]
-    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")  # Date + Time (up to seconds)
-    unique_id = datetime.now().strftime("%f")[:3]  # Unique milliseconds (3 digits)
-    return f"{prefix}_{timestamp}-{unique_id}.{ext}" if prefix else f"_{timestamp}-{unique_id}.{ext}"
+    """Generates a unique filename."""
+    prefix = prefix or "_"
+    ext = ext or "txt"
+    timestamp = time.strftime("%Y%m%d-%H%M%S")
+    unique_id = uuid.uuid4().hex[:6]  # Generate 6-character unique ID
+    return f"{prefix}_{timestamp}-{unique_id}.{ext}"
