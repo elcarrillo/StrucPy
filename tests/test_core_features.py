@@ -5,12 +5,16 @@ import pytest
 
 # Helper function to validate directory structure
 def check_directory_structure(base_path, structure):
+    """Validate the directory structure."""
     for folder, subfolders in structure.items():
-        assert (base_path / folder).exists(), f"Missing directory: {folder}"
-        for sub in subfolders:
-            assert (base_path / folder / subfolder).exists(), f"Missing subdirectory: {subfolder}"
+        folder_path = base_path / folder
+        assert folder_path.exists(), f"Missing directory: {folder} (Expected path: {folder_path})"
+        for subfolder in subfolders:
+            subfolder_path = folder_path / subfolder
+            assert subfolder_path.exists(), f"Missing subdirectory: {subfolder} (Expected path: {subfolder_path})"
 
 def test_create_project_dirs(tmp_path):
+    """Test creating a project directory structure."""
     base_path = tmp_path / "test_project"
     create_project_dirs(base_path)
 
@@ -25,9 +29,12 @@ def test_create_project_dirs(tmp_path):
 
     # Ensure no unexpected directories
     unexpected_dirs = list(base_path.glob("*"))
-    assert len(unexpected_dirs) == len(expected_structure), "Unexpected directories created."
+    assert len(unexpected_dirs) == len(expected_structure), (
+        f"Unexpected directories created. Expected {len(expected_structure)}, found {len(unexpected_dirs)}"
+    )
 
 def test_create_project_dirs_existing(tmp_path):
+    """Test creating directories when some already exist."""
     base_path = tmp_path / "test_project"
     os.makedirs(base_path / "input")  # Pre-create a directory
     create_project_dirs(base_path)
@@ -37,25 +44,33 @@ def test_create_project_dirs_existing(tmp_path):
     assert (base_path / "output" / "plots").exists(), "Subdirectory 'plots' under 'output' was not created."
 
 def test_generate_filename():
+    """Test generating filenames with default and custom values."""
     filename = generate_filename("test", "txt")
 
     # Check prefix and extension
-    assert filename.startswith("test_"), "Filename prefix does not match."
-    assert filename.endswith(".txt"), "Filename extension does not match."
+    assert filename.startswith("test_"), f"Filename prefix does not match. Got: {filename}"
+    assert filename.endswith(".txt"), f"Filename extension does not match. Got: {filename}"
 
     # Check timestamp format
     timestamp_str = filename.split("_")[1].split(".")[0]
     try:
         datetime.strptime(timestamp_str, "%Y%m%d-%H%M%S")
     except ValueError:
-        pytest.fail("Timestamp format is invalid")
+        pytest.fail(f"Timestamp format is invalid. Got: {timestamp_str}, expected format: YYYYMMDD-HHMMSS")
 
     # Check uniqueness
     filename2 = generate_filename("test", "txt")
     assert filename != filename2, "Generated filenames are not unique."
 
 def test_generate_filename_edge_cases():
+    """Test filename generation with unusual parameters."""
     # Empty prefix and unusual extension
     filename = generate_filename("", "log")
-    assert filename.startswith("_"), "Filename does not start with an underscore for an empty prefix."
-    assert filename.endswith(".log"), "Filename extension does not match."
+    assert filename.startswith("_"), f"Filename does not start with an underscore for an empty prefix. Got: {filename}"
+    assert filename.endswith(".log"), f"Filename extension does not match. Got: {filename}"
+
+    # Very long prefix
+    long_prefix = "a" * 100
+    filename = generate_filename(long_prefix, "csv")
+    assert filename.startswith(long_prefix), f"Filename prefix does not match for long prefix. Got: {filename}"
+    assert filename.endswith(".csv"), f"Filename extension does not match. Got: {filename}"

@@ -1,14 +1,16 @@
 Metadata-Version: 2.1
-Name: data-management-tool
+Name: StructPy
 Version: 0.1.0
-Summary: A Python-based tool for managing data projects.
-Home-page: https://github.com/elcarrillo/data-management-tool
+Summary: A Python-based tool for managing academic data projects.
+Home-page: https://github.com/elcarrillo/StructPy
 Author: Edgar L Carrillo
 Author-email: edgarc.ec@gmail.com
 License: MIT
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
 License-File: LICENSE
@@ -17,9 +19,9 @@ Requires-Dist: pyyaml>=6.0
 Requires-Dist: pytest>=7.0.0
 Requires-Dist: setuptools>=65.0.0
 
-# **Data Management Tool**
+# **StructPy**
 
-A Python-based command-line tool for managing data projects in computational science and research. This tool helps create structured project directories, generate timestamped filenames, validate datasets, and back up projects seamlessly.
+StructPy is a Python-based command-line tool designed for academics and scientists to manage data projects effectively. It simplifies workflows by creating structured project directories, generating timestamped filenames, validating datasets, and backing up projects seamlessly.
 
 ---
 
@@ -39,19 +41,43 @@ A Python-based command-line tool for managing data projects in computational sci
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/data-management-tool.git
-   cd data-management-tool
+   git clone https://github.com/elcarrillo/StructPy.git
+   cd StructPy
    ```
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. (Optional) Install the tool in editable mode:
+2. Install the package in editable mode using `setup.py`:
    ```bash
    pip install -e .
    ```
+
+3. Verify installation:
+   ```bash
+   structpy --help
+   ```
+
+---
+
+## **File Structure**
+
+The following is the structure of the project:
+
+```
+StructPy/
+├── src/                     # Source code for the tool
+│   ├── __init__.py          # Marks the 'src' folder as a package
+│   ├── core_features.py     # Core functionality for directories, backups, and filenames
+│   ├── validate.py          # Validation logic for datasets
+├── main.py                  # Main script for the CLI
+├── config.yaml              # Configuration file for customizing behavior
+├── requirements.txt         # Project dependencies
+├── setup.py                 # Installation script
+├── README.md                # Project documentation
+├── LICENSE                  # License for the project
+├── tests/                   # Unit tests
+│   ├── __init__.py          # Optional, for Python <3.3
+│   ├── test_core_features.py # Tests for core features
+│   ├── test_validate.py     # Tests for validation logic
+```
 
 ---
 
@@ -86,11 +112,11 @@ validation:
 
 ## **Usage**
 
-Run the tool using the command-line interface. Below are examples of typical workflows:
+Run the tool using the command-line interface via the `structpy` command. Below are examples of typical workflows:
 
 ### **1. Create Project Directories**
 ```bash
-python main.py create_dirs --path ./experiment_001
+structpy create_dirs --path ./experiment_001
 ```
 
 **Result:**
@@ -109,7 +135,7 @@ experiment_001/
 
 ### **2. Generate Filenames**
 ```bash
-python main.py generate_filename --prefix results --ext csv
+structpy generate_filename --prefix results --ext csv
 ```
 
 **Output:**
@@ -123,7 +149,7 @@ You can customize the prefix and extension using the command-line arguments or r
 
 ### **3. Validate a Dataset**
 ```bash
-python main.py validate --file data.csv
+structpy validate --file data.csv
 ```
 
 **Example Output:**
@@ -138,7 +164,7 @@ Data validation complete.
 
 ### **4. Backup a Project**
 ```bash
-python main.py backup --path ./experiment_001 --archive experiment_backup --backup-path ./backups
+structpy backup --path ./experiment_001 --archive experiment_backup --backup-path ./backups
 ```
 
 **Result:**
@@ -152,22 +178,22 @@ The project is compressed into `./backups/experiment_backup.zip`.
 
 1. **Create a project directory:**
    ```bash
-   python main.py create_dirs --path ./experiment_001
+   structpy create_dirs --path ./experiment_001
    ```
 
 2. **Process and validate your data:**
    ```bash
-   python main.py validate --file raw_data.csv
+   structpy validate --file raw_data.csv
    ```
 
 3. **Generate filenames for processed datasets:**
    ```bash
-   python main.py generate_filename --prefix processed_data --ext csv
+   structpy generate_filename --prefix processed_data --ext csv
    ```
 
 4. **Store and back up the project:**
    ```bash
-   python main.py backup --path ./experiment_001 --archive experiment_backup --backup-path ./backups
+   structpy backup --path ./experiment_001 --archive experiment_backup --backup-path ./backups
    ```
 
 ---
