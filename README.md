@@ -1,3 +1,26 @@
+<p align="center">
+  <img src="./logo.png" alt="StructPy Logo" width="400"/>
+</p>
+
+# **StructPy**
+
+StructPy is a Python-based command-line tool designed for academics and scientists to manage data projects effectively. It simplifies workflows by creating structured project directories, generating timestamped filenames, validating datasets, and backing up projects seamlessly.
+
+---
+
+## **Features**
+
+1. **Create Project Directory Structures**:
+   - Automatically generate consistent directories and subdirectories based on a YAML configuration file.
+2. **Generate Filenames**:
+   - Create unique, timestamped filenames with customizable prefixes and extensions.
+3. **Validate Datasets**:
+   - Check for missing values, duplicate columns, and outliers in CSV files.
+4. **Backup Projects**:
+   - Compress entire project directories into `.zip` archives for easy sharing and safekeeping.
+
+...
+
 # **StructPy**
 
 StructPy is a Python-based command-line tool designed for academics and scientists to manage data projects effectively. It simplifies workflows by creating structured project directories, generating timestamped filenames, validating datasets, and backing up projects seamlessly.
