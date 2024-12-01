@@ -60,10 +60,10 @@ StructPy/
 ├── README.md                # Project documentation
 ├── requirements.txt         # Project dependencies
 ├── pytest.ini               # Pytest configuration
-├── run_tests.sh             # Test execution script
 ├── setup.py                 # Installation script
+├── structpy_logo.png         # Installation script
 ├── config.yaml              # Main configuration file
-├── CHANGELOG.md        # Place your changelog here
+├── CHANGELOG.md             # changelog
 
 
 ```
