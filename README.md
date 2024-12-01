@@ -8,6 +8,14 @@ StructPy is a Python-based command-line tool designed for academics and scientis
 
 ---
 
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://python.org)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/elcarrillo/StructPy)](https://github.com/elcarrillo/StructPy)
+[![Open Issues](https://img.shields.io/github/issues/elcarrillo/StructPy)](https://github.com/elcarrillo/StructPy/issues)
+[![Stars](https://img.shields.io/github/stars/elcarrillo/StructPy?style=social)](https://github.com/elcarrillo/StructPy/stargazers)
+[![Code Quality](https://img.shields.io/codefactor/grade/github/elcarrillo/StructPy)](https://www.codefactor.io/repository/github/elcarrillo/StructPy)
+![Build Status](https://github.com/elcarrillo/StructPy/actions/workflows/ci.yml/badge.svg)
+
 ## **Features**
 
 1. **Create Project Directory Structures**:
