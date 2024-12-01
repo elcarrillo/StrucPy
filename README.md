@@ -31,7 +31,7 @@ StructPy is a Python-based command-line tool designed for academics and scientis
 
 # **StructPy**
 
-StructPy is a Python-based command-line tool designed for academics and scientists to manage data projects effectively. It simplifies workflows by creating structured project directories, generating timestamped filenames, validating datasets, and backing up projects seamlessly.
+StructPy is a Python-based command-line tool designed for academics and scientists to manage data projects effectively. It simplifies workflows by creating structured project directories, generating timestamped filenames, validating datasets, and seamlessly backing up projects.
 
 ---
 
@@ -92,7 +92,7 @@ StructPy/
 ├── requirements.txt         # Project dependencies
 ├── pytest.ini               # Pytest configuration
 ├── setup.py                 # Installation script
-├── structpy_logo.png         # Installation script
+├── logo.png                 # package logo
 ├── config.yaml              # Main configuration file
 ├── CHANGELOG.md             # changelog
 
