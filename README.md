@@ -54,7 +54,7 @@ StructPy/
 │   ├── test_core_features.py
 │   ├── test_validate.py
 ├── examples/                # Example configurations/files
-│   └── config.yaml
+│   └── ...
 ├── .gitignore               # Git ignore rules
 ├── LICENSE                  # License file
 ├── README.md                # Project documentation
@@ -63,6 +63,8 @@ StructPy/
 ├── run_tests.sh             # Test execution script
 ├── setup.py                 # Installation script
 ├── config.yaml              # Main configuration file
+├── CHANGELOG.md        # Place your changelog here
+
 
 ```
 
