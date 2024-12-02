@@ -83,7 +83,6 @@ StructPy/
 │   ├── __init__.py
 │   ├── conftest.py
 │   ├── test_core_features.py
-│   ├── test_validate.py
 ├── examples/                # Example configurations/files
 │   └── ...
 ├── .gitignore               # Git ignore rules
