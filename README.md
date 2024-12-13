@@ -131,7 +131,19 @@ validation:
 
 ## **Usage**
 
-Run the tool using the command-line interface via the `structpy` command. Below are examples of typical workflows:
+To use the tool via the command-line interface, run the `structpy` command. The syntax follows this format:
+
+```
+structpy {positional_argument} [--option OPTION_PARAMETER]
+```
+
+For a complete list of positional arguments and available options, use the `--help` flag:
+
+```
+structpy --help
+```
+
+Here are some examples of typical workflows to get you started:
 
 ### **1. Create Project Directories**
 ```bash
