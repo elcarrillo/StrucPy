@@ -1,11 +1,25 @@
+# Byte-compiled / optimized / compiled files
 __pycache__/
+*.py[cod]
+
+# Test-related cache
 .pytest_cache/
+
+# IDE-specific settings
 .vscode/
 .idea/
+
+# Virtual environment
 env/
-*.pyc
-run_tests.sh
+
+# macOS system files
 .DS_Store
-tests/test_validate.py
+
+# Shell scripts
+run_tests.sh
+
+# Ignore egg-info directories
 *.egg-info/
 
+# Exclude specific test file 
+tests/test_validate.py
