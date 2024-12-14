@@ -7,3 +7,5 @@ env/
 run_tests.sh
 .DS_Store
 tests/test_validate.py
+*.egg-info/
+
