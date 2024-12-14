@@ -15,11 +15,9 @@ env/
 # macOS system files
 .DS_Store
 
-# Shell scripts
-run_tests.sh
-
 # Ignore egg-info directories
 *.egg-info/
 
-# Exclude specific test file 
+# Exclude specific file 
 tests/test_validate.py
+run_tests.sh
